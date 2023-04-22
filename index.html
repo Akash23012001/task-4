@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        p {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+        <label>Weight:</label>
+        <input type="text" id="weightInput" placeholder="Enter weight">
+        <label>Height:</label>
+        <input type="text" id="heightInput" placeholder="Enter height">
+        <label>Weight Unit:</label>
+        <select id="weightUnitSelect">
+            <option value="kg">kg</option>
+            <option value="lbs">lbs</option>
+        </select>
+        <label>Height Unit:</label>
+        <select id="heightUnitSelect">
+            <option value="cm">cm</option>
+            <option value="ft">ft</option>
+            <option value="m">m</option>
+        </select>
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            var weightInput = document.getElementById('weightInput').value;
+            var heightInput = document.getElementById('heightInput').value;
+            var weightUnitSelect = document.getElementById('weightUnitSelect').value;
+            var heightUnitSelect = document.getElementById('heightUnitSelect').value;
+            var bmi;
+
+            // Convert weight to kg if input is in lbs
+            if (weightUnitSelect === 'lbs') {
+                weightInput = weightInput * 0.453592;
+            }
+
+            // Convert height to meters if input is in cm or ft
+            if (heightUnitSelect === 'cm') {
+                heightInput = heightInput / 100;
+            } else if (heightUnitSelect === 'ft') {
+                heightInput = heightInput * 0.3048;
+            }
+
+            // Calculate BMI
+            bmi = weightInput / (heightInput * heightInput);
+
+            // Display result
+            var resultElement = document.getElementById('result');
+            resultElement.innerHTML = 'Your BMI: ' + bmi.toFixed(2);
+        }
+    </script>
+</body>
+</html>
